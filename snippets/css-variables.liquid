@@ -1,0 +1,341 @@
+{%- comment -%}
+  Mục tiêu là chuyển theme setting (config/settings_schema.json) -> biến css mà base.css dùng
+  Dùng thẻ {% style %} không phải <style> để theme Editor cập nhật màu/font xem trước ngày khi merchant kéo chỉnh, không cần tải lại trang.
+  Quy tắc scheme:
+    - Mọi biến màu phụ thuộc scheme khai báo trong khối .color-{{ scheme.id }} bên dưới và mọi scheme phải có đủ cùng một bộ biến.
+    - Không ghép var(--stf-scheme-*) vào biến khai báo ở :root - giá trị sẽ bị chốt them scheme - 1
+{%- endcomment -%}
+
+{%- liquid
+  # Font --------------------
+  assign heading_font = settings.type_heading_font
+  assign highlight_font = settings.type_heading_highlight_font
+  assign body_font = settings.type_body_font
+
+  case settings.type_subheading_font_source
+    when 'heading'
+      assign subheading_font = heading_font
+    when 'other'
+      assign subheading_font = settings.type_subheading_font
+    else
+      assign subheading_font = body_font
+  endcase
+
+  # Font cần tải
+  assign font_keys = 'type_body_font,type_heading_font,type_heading_highlight_font'
+  if settings.type_subheading_font_source == 'other'
+    assign font_keys = font_keys | append: ',type_subheading_font'
+  endif
+  assign font_keys = font_keys | split: ','
+
+  # Các độ đậm mà text style và setting font weight có thể dùng
+  assign weights = '300,400,500,600,700' | split: ','
+
+  # Appearance -------------------------------
+  case settings.icon_thickness
+    when 'regular'
+      assign icon_stroke = 'var(--stf-icon-regular)'
+    when 'bold'
+      assign icon_stroke = 'var(--stf-icon-bold)'
+    else
+      assign icon_stroke = 'var(--stf-icon-thin)'
+  endcase
+
+  # Corner  radius -> Hệ số bo góc: square = 0; rounded = 1; pill = 9999
+  case settings.radius_buttons
+    when 'pill'
+      assign button_radius_factor = 9999
+    when 'rounded'
+      assign button_radius_factor = 1
+    else
+      assign button_radius_factor = 0
+  endcase
+
+  # Buttons and inputs > Height
+  case settings.button_input_height
+    when 'lg'
+      assign button_height_mobile = 'var(--stf-bh-sm)'
+      assign button_height_desktop = 'var(--stf-bh-md)'
+    when '2xl'
+      assign button_height_mobile = 'var(--stf-bh-lg)'
+      assign button_height_desktop = 'var(--stf-bh-xl)'
+    else
+      assign button_height_mobile = 'var(--stf-bh-md)'
+      assign button_height_desktop = 'var(--stf-bh-lg)'
+  endcase
+
+  # Back to top > Size
+  case settings.back_to_top_size
+    when 'small'
+      assign back_to_top_size = 'var(--stf-bh-sm)'
+    when 'large'
+      assign back_to_top_size = 'var(--stf-bh-lg)'
+    else
+      assign back_to_top_size = 'var(--stf-bh-md)'
+  endcase
+
+  # Product cards / listing
+  case settings.card_image_ratio
+    when 'square'
+      assign card_ratio = '1 / 1'
+    when 'portrait_4_5'
+      assign card_ratio = '4 / 5'
+    when 'portrait_3_4'
+      assign card_ratio = '3 / 4'
+    when 'portrait_2_3'
+      assign card_ratio = '2 / 3'
+    when 'landscape_5_4'
+      assign card_ratio = '5 / 4'
+    when 'landscape_4_3'
+      assign card_ratio = '4 / 3'
+    when 'landscape_3_2'
+      assign card_ratio = '3 / 2'
+    else
+      assign card_ratio = 'auto'
+  endcase
+
+  # Swatch > size
+  case settings.card_swatch_width
+    when 'sm'
+      assign swatch_size = 'var(--stf-size-20)'
+    when 'md'
+      assign swatch_size = 'var(--stf-size-24)'
+    when 'lg'
+      assign swatch_size = 'var(--stf-size-32)'
+    when 'xl'
+      assign swatch_size = 'var(--stf-size-40)'
+    else
+      assign swatch_size = 'var(--stf-size-16)'
+  endcase
+
+  # Swatch > shape
+  assign swatch_long = 'calc(' | append: swatch_size | append: ' * 1.5)'
+  case settings.card_swatch_shape
+    when 'portrait'
+      assign swatch_w = swatch_size
+      assign swatch_h = swatch_long
+    when 'landscape'
+      assign swatch_w = swatch_long
+      assign swatch_h = swatch_size
+    else
+      assign swatch_w = swatch_size
+      assign swatch_h = swatch_size
+  endcase
+  # Swatch > rounded
+  if settings.card_swatch_shape == 'circle'
+    assign swatch_radius = 'var(--stf-radius-full)'
+  elsif settings.card_swatch_rounded
+    assign swatch_radius = 'var(--stf-radius-2xs)'
+  else
+    assign swatch_radius = '0'
+  endif
+
+  # Product > column gap
+  case settings.listing_column_gap
+    when 'none'
+      assign grid_gap = '0'
+    when '2xs'
+      assign grid_gap = 'var(--stf-space-4)'
+    when 'sm'
+      assign grid_gap = 'var(--stf-space-12)'
+    when 'md'
+      assign grid_gap = 'var(--stf-space-16)'
+    when 'lg'
+      assign grid_gap = 'var(--stf-space-24)'
+    when 'xl'
+      assign grid_gap = 'var(--stf-space-32)'
+    when '2xl'
+      assign grid_gap = 'var(--stf-space-48)'
+    else
+      assign grid_gap = 'var(--stf-space-8)'
+  endcase
+-%}
+{%- style -%}
+  {%- liquid
+    assign rendered = ''
+    for key in font_keys
+      assign f = settings[key]
+      for w in weights
+       assign fv = f | font_modify: 'weight', w
+       if fv
+        assign id = fv.family | append: '|' | append: fv.weight | append: '|' | append: fv.style | append: ';'
+        unless rendered contains id
+          echo fv | font_face: font_display: 'swap'
+          assign rendered = rendered | append: id
+        endunless
+       endif
+      endfor
+
+      assign id = f.family | append: '|' | append: f.weight | append: '|' | append: f.style | append: ';'
+      unless rendered contains id
+        echo f | font_face: font_display: 'swap'
+        assign rendered = rendered | append: id
+      endunless
+    endfor
+
+    # Italic cho body
+     assign body_italic = body_font | font_modify: 'style', 'italic'
+    assign body_bold_italic = body_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic'
+    if body_italic
+      echo body_italic | font_face: font_display: 'swap'
+    endif
+    if body_bold_italic
+      echo body_bold_italic | font_face: font_display: 'swap'
+    endif
+  -%}
+
+  :root {
+    /* Theme style > Độ đậm, letter-spacing của preset */
+    {%- render 'text-style-presets' -%}
+
+    /* Typography > Font */
+    --stf-ff-body: {{ body_font.family | json }}, {{ body_font.fallback_families }};
+    --stf-ff-heading: {{ heading_font.family | json }}, {{ heading_font.fallback_families }};
+    --stf-ff-heading-highlight: {{ highlight_font.family | json }}, {{ highlight_font.fallback_families }};
+    --stf-ff-subheading: {{ subheading_font.family | json }}, {{ subheading_font.fallback_families }};
+    --stf-ff-button: var(--stf-ff-{{ settings.type_button_font }});
+    --stf-ff-product-name: var(--stf-ff-{{ settings.type_card_title_font }});
+    --stf-ff-product-price: var(--stf-ff-{{ settings.type_card_price_font }});
+    --stf-ff-badge: var(--stf-ff-{{ settings.type_badge_font }});
+    --stf-ff-menu: var(--stf-ff-{{ settings.type_menu_font }});
+    /* Typography > Base size */
+    --stf-scale-m: {{ settings.type_base_size_mobile | divided_by: 14.0}};
+    --stf-scale-d: {{ settings.type_base_size | divided_by: 16.0 }};
+    /* Typography > Heading / Body */
+    --stf-tt-heading: {% if settings.type_heading_uppercase %}uppercase{% else %}none{% endif %};
+    --stf-tt-body: {% if settings.type_body_uppercase %}uppercase{% else %}none{% endif %};
+    {%- assign heading_lh_x10 = settings.type_heading_line_height | times: 10 | round -%}
+    {%- assign body_lh_x10 = settings.type_body_line_height | times: 10 | round -%}
+    {%- if heading_lh_x10 != 12 -%}
+      --stf-lh-heading: {{ settings.type_heading_line_height }};
+    {%- endif -%}
+    {%- if settings.type_heading_letter_spacing != 0 -%}
+      --stf-ls-heading: {{ settings.type_heading_letter_spacing | divided_by: 100.0 }}em;
+    {%- endif -%}
+    {%- if body_lh_x10 != 15 -%}
+      --stf-lh-body: {{ settings.type_body_line_height }};
+    {%- endif -%}
+    {%- if settings.type_body_letter_spacing != 0 -%}
+      --stf-ls-body: {{ settings.type_body_letter_spacing | divided_by: 100.0 }}em;
+    {%- endif -%}
+    /* Typography > Subheading, Button, Product card, Badge, Menu */
+    {%- if settings.type_subheading_size != 14 -%}
+      --stf-fs-subheading: {{ settings.type_subheading_size | divided_by: 16.0 }}rem;
+    {%- endif -%}
+    {%- capture nl %} {% endcapture -%}
+    {%- liquid
+      assign type_groups = 'subheading,button,card_title,card_price,badge,menu' | split: ','
+      assign css_prefix = 'subheading,button,product-name,product-price,badge,menu' | split: ','
+      for g in type_groups
+        assign p = css_prefix[forloop.index0]
+        assign weight_key = 'type_' | append: g | append: '_weight'
+        assign ls_key = 'type_' | append: g | append: '_letter_spacing'
+        assign upper_key = 'type_' | append: g | append: '_uppercase'
+        if settings[weight_key] != 'inherit'
+          echo nl | append: '--stf-fw-' | append: p | append: ': ' | append: settings[weight_key] | append: ';'
+        endif
+        if settings[ls_key] != 0
+          assign ls = settings[ls_key] | divided_by: 100.0
+          echo nl | append: '--stf-ls-' | append: p | append: ': ' | append: ls | append: 'em;'
+        endif
+        unless g == 'card_price'
+          if settings[upper_key]
+            echo nl | append: '--stf-tt-' | append: p  | append: ': uppercase;'
+          else
+            echo nl | append: '--stf-tt-' | append: p | append: ': none;'
+          endif
+        endunless
+      endfor
+    -%}
+    /* Appearance */
+    --stf-icon-stroke-width: {{ icon_stroke }};
+    {%- if settings.icon_sharpness %}
+     --stf-icon-stroke-linejoin: miter;
+     --stf-icon-stroke-linecap: square;
+    {%- else %}
+      --stf-icon-stroke-linejoin: round;
+      --stf-icon-stroke-linecap: round;
+    {%- endif %}
+    /* Corner radius - hệ số 0/1/9999 */
+    --stf-button-radius-factor: {{ button_radius_factor }};
+    --stf-input-radius-factor: {{ input_radius_factor }};
+    --stf-block-radius-factor: {{ block_radius_factor }};
+    --stf-card-radius-factor: {{ card_radius_factor }};
+    --stf-badge-radius-factor: {{ badge_radius_factor }};
+    --stf-back-to-top-size: {{ back_to_top_size }};
+    --stf-back-to-top-bottom-offset: {{ settings.back_to_top_bottom_offset | divided_by: 16.0 }}rem;
+    --stf-back-to-top-side-offset: {{ settings.back_to_top_side_offset | divided_by: 16.0 }}rem;
+    /* Layout/ buttons and inputs */
+    --stf-page-width {{ settings.page_width }}px;
+    --stf-bh: {{ button_height_mobile }};
+    /* Colors > Badges */
+    --stf-badge-soldout-bg: rgb({{ settings.badge_soldout_bg.rgba }});
+    --stf-badge-soldout-text: rgb({{ settings.badge_soldout_text.rgba }});
+    --stf-badge-sale-bg: rgb({{ settings.badge_sale_bg.rgba }});
+    --stf-badge-sale-text: rgb({{ settings.badge_sale_text.rgba }});
+    --stf-badge-hot-bg: rgb({{ settings.badge_hot_bg.rgba }});
+    --stf-badge-hot-text: rgb({{ settings.badge_hot_text.rgba }});
+    --stf-badge-new-bg: rgb({{ settings.badge_new_bg.rgba }});
+    --stf-badge-new-text: rgb({{ settings.badge_new_text.rgba }});
+    --stf-badge-preorder-bg: rgb({{ settings.badge_preorder_bg.rgba }});
+    --stf-badge-preorder-text: rgb({{ settings.badge_preorder_text.rgba }});
+    /* Colors > Cart count bubble */
+    --stf-cart-bubble-bg: rgb({{ settings.cart_bubble_bg.rgba }});
+    --stf-cart-bubble-text: rgb({{ settings.cart_bubble_text.rgba }});
+    /* Product cards > listing */
+    --stf-card-image-aspect-ratio: {{ card_ratio }};
+    --stf-card-content-align: {{ settings.card_content_alignment }};
+    --stf-card-swatch-width: {{ swatch_w }};
+    --stf-card-swatch-height: {{ swatch_h }};
+    --stf-card-swatch-radius: {{ swatch_radius }};
+    --stf-product-grid-gap: {{ grid_gap }};
+    --stf-product-grid-border-width: {% if settings.listing_column_gap == 'none' %}var(--stf-border-thin){% else %}0{% endif %};
+    /* Overlays */
+    --stf-overlay-backdrop-blur: {{ settings.overlay_backdrop_blur }}px;
+    --stf-overlay-backdrop-opacity: {{ settings.overlay_backdrop_opacity | divided_by: 100.0 }};
+  }
+
+  @media (min-width: 48em) {
+    :root {
+      --stf-bh: {{ button_height_desktop }};
+    }
+  }
+  /* Color schemes */
+  {%- for scheme in settings.color_schemes -%}
+    {%- assign s = scheme.settings -%}
+    {% if forloop.first %}:root,{% endif %}.color-{{ scheme.id }} {
+      --stf-scheme-accent: rgb({{ s.accent.rgba }});
+      --stf-scheme-text: rgb({{ s.text.rgba }});
+      --stf-scheme-text-secondary: rgb({{ s.text_secondary.rgba }});
+      --stf-scheme-bg: rgb({{ s.background.rgba }});
+      {%- assign bg_brightness = s.background | color_brightness -%}
+      --stf-scheme-color: {% if bg_brightness < 128 %}dark{% else %}light{% endif %};
+      --stf-scheme-bg-gradient: {% if s.background_gradient != blank %}{{ s.background_gradient }}{% else %}none{% endif %};
+      --stf-scheme-bg-secondary: rgb({{ s.background_secondary.rgba }});
+      --stf-scheme-border: rgb({{ s.border.rgba }});
+      --stf-scheme-shadow: rgb({{ s.shadow.rgba }});
+      --stf-button-primary-text: rgb({{ s.button_primary_text.rgba }});
+      --stf-button-primary-text-hover: rgb({{ s.button_primary_text_hover.rgba }});
+      --stf-button-primary-bg: rgb({{ s.button_primary_bg.rgba }});
+      --stf-button-primary-bg-hover: rgb({{ s.button_primary_bg_hover.rgba }});
+      --stf-button-secondary-text: rgb({{ s.button_secondary_text.rgba }});
+      --stf-button-secondary-text-hover: rgb({{ s.button_secondary_text_hover.rgba }});
+      --stf-button-secondary-bg-hover: rgb({{ s.button_secondary_bg_hover.rgba }});
+      --stf-input-text: rgb({{ s.input_text.rgba }});
+      --stf-input-border: rgb({{ s.input_border.rgba }});
+      --stf-input-bg: rgb({{ s.input_bg.rgba }});
+      --stf-input-bg-hover: rgb({{ s.background.rgba }});
+      --stf-product-rating: rgb({{ s.rating.rgba }});
+      --stf-product-price: rgb({{ s.price.rgba }});
+      --stf-product-sale-accent: rgb({{ s.sale_accent.rgba }});
+      --stf-status-success: rgb({{ s.status_success.rgba }});
+      --stf-status-success-soft: {{ s.status_success | color_modify: 'alpha', 0.1 }};
+      --stf-status-warning: rgb({{ s.status_warning.rgba }});
+      --stf-status-danger: rgb({{ s.status_error.rgba }});
+      --stf-status-danger-soft: {{ s.status_error | color_modify: 'alpha', 0.1 }};
+      --stf-status-processing: rgb({{ s.status_processing.rgba }});
+      --stf-status-info: rgb({{ s.status_info.rgba }});
+
+    }
+  {%- endfor -%}
+{%- endstyle -%}

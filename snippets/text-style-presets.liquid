@@ -1,0 +1,89 @@
+{% comment %}
+  Mỗi preset đủ 40 biến cho fw + ls của Display, Heading, Body
+{% endcomment %}
+{%- case settings.theme_style -%}
+  {%- when '2' %}
+    {%- comment -%} Preset 2 {%- endcomment -%}
+    --stf-fw-text-display-8xl: var(--stf-fw-regular); --stf-ls-text-display-8xl: var(--stf-ls-wider-16);
+    --stf-fw-text-display-7xl: var(--stf-fw-regular); --stf-ls-text-display-7xl: var(--stf-ls-wider-16);
+    --stf-fw-text-heading-6xl: var(--stf-fw-regular); --stf-ls-text-heading-6xl: var(--stf-ls-wider-14);
+    --stf-fw-text-heading-5xl: var(--stf-fw-regular); --stf-ls-text-heading-5xl: var(--stf-ls-wider-14);
+    --stf-fw-text-heading-4xl: var(--stf-fw-regular); --stf-ls-text-heading-4xl: var(--stf-ls-wider-14);
+    --stf-fw-text-heading-3xl: var(--stf-fw-regular); --stf-ls-text-heading-3xl: var(--stf-ls-wider-12);
+    --stf-fw-text-heading-2xl: var(--stf-fw-regular); --stf-ls-text-heading-2xl: var(--stf-ls-wider-12);
+    --stf-fw-text-heading-xl: var(--stf-fw-regular); --stf-ls-text-heading-xl: var(--stf-ls-wider-10);
+    --stf-fw-text-heading-base: var(--stf-fw-regular); --stf-ls-text-heading-base: var(--stf-ls-wider-8);
+    --stf-fw-text-heading-lg: var(--stf-fw-regular); --stf-ls-text-heading-lg: var(--stf-ls-wider-6);
+    --stf-fw-text-heading-md: var(--stf-fw-regular); --stf-ls-text-heading-md: var(--stf-ls-wider-4);
+    --stf-fw-text-heading-sm: var(--stf-fw-regular); --stf-ls-text-heading-sm: var(--stf-ls-wider-2);
+    --stf-fw-text-body-2xl: var(--stf-fw-regular); --stf-ls-text-body-2xl: var(--stf-ls-wider-2); --stf-fw-text-body-xl:
+    var(--stf-fw-regular); --stf-ls-text-body-xl: var(--stf-ls-wider-2); --stf-fw-text-body-base: var(--stf-fw-regular);
+    --stf-ls-text-body-base: var(--stf-ls-wider-2); --stf-fw-text-body-lg: var(--stf-fw-regular); --stf-ls-text-body-lg:
+    var(--stf-ls-wider-2); --stf-fw-text-body-md: var(--stf-fw-regular); --stf-ls-text-body-md: var(--stf-ls-wider-2);
+    --stf-fw-text-body-sm: var(--stf-fw-regular); --stf-ls-text-body-sm: var(--stf-ls-wider-2); --stf-fw-text-body-xs:
+    var(--stf-fw-regular); --stf-ls-text-body-xs: var(--stf-ls-wider-2); --stf-fw-text-body-2xs: var(--stf-fw-regular);
+    --stf-ls-text-body-2xs: var(--stf-ls-wider-2);
+  {%- when '3' %}
+    {%- comment -%} Preset 3 {%- endcomment -%}
+    --stf-fw-text-display-8xl: var(--stf-fw-semibold); --stf-ls-text-display-8xl: var(--stf-ls-tighter-12);
+    --stf-fw-text-display-7xl: var(--stf-fw-semibold); --stf-ls-text-display-7xl: var(--stf-ls-tighter-12);
+    --stf-fw-text-heading-6xl: var(--stf-fw-semibold); --stf-ls-text-heading-6xl: var(--stf-ls-tighter-10);
+    --stf-fw-text-heading-5xl: var(--stf-fw-semibold); --stf-ls-text-heading-5xl: var(--stf-ls-tighter-10);
+    --stf-fw-text-heading-4xl: var(--stf-fw-semibold); --stf-ls-text-heading-4xl: var(--stf-ls-tighter-8);
+    --stf-fw-text-heading-3xl: var(--stf-fw-semibold); --stf-ls-text-heading-3xl: var(--stf-ls-tighter-8);
+    --stf-fw-text-heading-2xl: var(--stf-fw-semibold); --stf-ls-text-heading-2xl: var(--stf-ls-tighter-6);
+    --stf-fw-text-heading-xl: var(--stf-fw-semibold); --stf-ls-text-heading-xl: var(--stf-ls-tighter-6);
+    --stf-fw-text-heading-base: var(--stf-fw-semibold); --stf-ls-text-heading-base: var(--stf-ls-tighter-4);
+    --stf-fw-text-heading-lg: var(--stf-fw-semibold); --stf-ls-text-heading-lg: var(--stf-ls-tighter-2);
+    --stf-fw-text-heading-md: var(--stf-fw-semibold); --stf-ls-text-heading-md: var(--stf-ls-normal);
+    --stf-fw-text-heading-sm: var(--stf-fw-semibold); --stf-ls-text-heading-sm: var(--stf-ls-normal);
+    --stf-fw-text-body-2xl: var(--stf-fw-regular); --stf-ls-text-body-2xl: var(--stf-ls-wider-2); --stf-fw-text-body-xl:
+    var(--stf-fw-regular); --stf-ls-text-body-xl: var(--stf-ls-wider-2); --stf-fw-text-body-base: var(--stf-fw-regular);
+    --stf-ls-text-body-base: var(--stf-ls-wider-2); --stf-fw-text-body-lg: var(--stf-fw-regular); --stf-ls-text-body-lg:
+    var(--stf-ls-wider-2); --stf-fw-text-body-md: var(--stf-fw-regular); --stf-ls-text-body-md: var(--stf-ls-wider-2);
+    --stf-fw-text-body-sm: var(--stf-fw-regular); --stf-ls-text-body-sm: var(--stf-ls-wider-2); --stf-fw-text-body-xs:
+    var(--stf-fw-regular); --stf-ls-text-body-xs: var(--stf-ls-wider-2); --stf-fw-text-body-2xs: var(--stf-fw-regular);
+    --stf-ls-text-body-2xs: var(--stf-ls-wider-2);
+  {%- when '4' %}
+    {%- comment -%} Preset 4 {%- endcomment -%}
+    --stf-fw-text-display-8xl: var(--stf-fw-medium); --stf-ls-text-display-8xl: var(--stf-ls-normal);
+    --stf-fw-text-display-7xl: var(--stf-fw-medium); --stf-ls-text-display-7xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-6xl: var(--stf-fw-medium); --stf-ls-text-heading-6xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-5xl: var(--stf-fw-medium); --stf-ls-text-heading-5xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-4xl: var(--stf-fw-medium); --stf-ls-text-heading-4xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-3xl: var(--stf-fw-medium); --stf-ls-text-heading-3xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-2xl: var(--stf-fw-medium); --stf-ls-text-heading-2xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-xl: var(--stf-fw-medium); --stf-ls-text-heading-xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-base: var(--stf-fw-medium); --stf-ls-text-heading-base: var(--stf-ls-normal);
+    --stf-fw-text-heading-lg: var(--stf-fw-medium); --stf-ls-text-heading-lg: var(--stf-ls-normal);
+    --stf-fw-text-heading-md: var(--stf-fw-medium); --stf-ls-text-heading-md: var(--stf-ls-normal);
+    --stf-fw-text-heading-sm: var(--stf-fw-medium); --stf-ls-text-heading-sm: var(--stf-ls-normal);
+    --stf-fw-text-body-2xl: var(--stf-fw-regular); --stf-ls-text-body-2xl: var(--stf-ls-normal); --stf-fw-text-body-xl:
+    var(--stf-fw-regular); --stf-ls-text-body-xl: var(--stf-ls-normal); --stf-fw-text-body-base: var(--stf-fw-regular);
+    --stf-ls-text-body-base: var(--stf-ls-normal); --stf-fw-text-body-lg: var(--stf-fw-regular); --stf-ls-text-body-lg:
+    var(--stf-ls-normal); --stf-fw-text-body-md: var(--stf-fw-regular); --stf-ls-text-body-md: var(--stf-ls-normal);
+    --stf-fw-text-body-sm: var(--stf-fw-regular); --stf-ls-text-body-sm: var(--stf-ls-normal); --stf-fw-text-body-xs:
+    var(--stf-fw-regular); --stf-ls-text-body-xs: var(--stf-ls-normal); --stf-fw-text-body-2xs: var(--stf-fw-regular);
+    --stf-ls-text-body-2xs: var(--stf-ls-normal);
+  {%- else %}
+    {%- comment -%} Preset 1 (mặc định + giá trị trống / lạ) {%- endcomment -%}
+    --stf-fw-text-display-8xl: var(--stf-fw-medium); --stf-ls-text-display-8xl: var(--stf-ls-normal);
+    --stf-fw-text-display-7xl: var(--stf-fw-medium); --stf-ls-text-display-7xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-6xl: var(--stf-fw-medium); --stf-ls-text-heading-6xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-5xl: var(--stf-fw-medium); --stf-ls-text-heading-5xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-4xl: var(--stf-fw-medium); --stf-ls-text-heading-4xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-3xl: var(--stf-fw-medium); --stf-ls-text-heading-3xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-2xl: var(--stf-fw-medium); --stf-ls-text-heading-2xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-xl: var(--stf-fw-medium); --stf-ls-text-heading-xl: var(--stf-ls-normal);
+    --stf-fw-text-heading-base: var(--stf-fw-medium); --stf-ls-text-heading-base: var(--stf-ls-normal);
+    --stf-fw-text-heading-lg: var(--stf-fw-medium); --stf-ls-text-heading-lg: var(--stf-ls-normal);
+    --stf-fw-text-heading-md: var(--stf-fw-medium); --stf-ls-text-heading-md: var(--stf-ls-normal);
+    --stf-fw-text-heading-sm: var(--stf-fw-medium); --stf-ls-text-heading-sm: var(--stf-ls-normal);
+    --stf-fw-text-body-2xl: var(--stf-fw-regular); --stf-ls-text-body-2xl: var(--stf-ls-normal); --stf-fw-text-body-xl:
+    var(--stf-fw-regular); --stf-ls-text-body-xl: var(--stf-ls-normal); --stf-fw-text-body-base: var(--stf-fw-regular);
+    --stf-ls-text-body-base: var(--stf-ls-normal); --stf-fw-text-body-lg: var(--stf-fw-regular); --stf-ls-text-body-lg:
+    var(--stf-ls-normal); --stf-fw-text-body-md: var(--stf-fw-regular); --stf-ls-text-body-md: var(--stf-ls-normal);
+    --stf-fw-text-body-sm: var(--stf-fw-regular); --stf-ls-text-body-sm: var(--stf-ls-normal); --stf-fw-text-body-xs:
+    var(--stf-fw-regular); --stf-ls-text-body-xs: var(--stf-ls-normal); --stf-fw-text-body-2xs: var(--stf-fw-regular);
+    --stf-ls-text-body-2xs: var(--stf-ls-normal);
+{%- endcase -%}

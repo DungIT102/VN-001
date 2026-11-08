@@ -1,0 +1,701 @@
+/**  
+* base.css: không có các variable ở trong phần theme setting. Tập trung vào các css tĩnh để được cache trên CDN.
+* Mục lục:
+*   1. Token gốc (size, letter-spacing, font weight/style)
+*   2. Token theme (space, grid, section spacing, button height, radius, border, icon, shadow)
+*   3. Type scale Mobile -> Desktop
+*   4. Font Family cố định (Quote, Code)
+*   5. Màu toàn cục cố định (badge Best seller / Trending / Vintage, Info)
+*   6. Color scheme (chỉ áp mã màu hex)
+*   7. Reset
+*   8. Kiểu chữ: body, h1-h6, display, heading, body, b/strong, code , blockquote
+*/
+
+/* 1. TOKEN GỐC */
+:root {
+  /* size - kích thước gốc được chuyển rem chỉ riêng size-max giữ px */
+  --stf-size-0: 0;
+  --stf-size-1: 0.0625rem;
+  --stf-size-2: 0.125rem;
+  --stf-size-4: 0.25rem;
+  --stf-size-6: 0.375rem;
+  --stf-size-8: 0.5rem;
+  --stf-size-10: 0.625rem;
+  --stf-size-12: 0.75rem;
+  --stf-size-14: 0.875rem;
+  --stf-size-16: 1rem;
+  --stf-size-20: 1.25rem;
+  --stf-size-24: 1.5rem;
+  --stf-size-28: 1.75rem;
+  --stf-size-32: 2rem;
+  --stf-size-36: 2.25rem;
+  --stf-size-40: 2.5rem;
+  --stf-size-44: 2.75rem;
+  --stf-size-48: 3rem;
+  --stf-size-52: 3.25rem;
+  --stf-size-56: 3.5rem;
+  --stf-size-60: 3.75rem;
+  --stf-size-64: 4rem;
+  --stf-size-80: 5rem;
+  --stf-size-100: 6.25rem;
+  --stf-size-120: 7.5rem;
+  --stf-size-148: 9.25rem;
+  --stf-size-200: 12.5rem;
+  --stf-size-320: 20rem;
+  --stf-size-360: 22.5rem;
+  --stf-size-384: 24rem;
+  --stf-size-480: 30rem;
+  --stf-size-560: 35rem;
+  --stf-size-576: 36rem;
+  --stf-size-640: 40rem;
+  --stf-size-720: 45rem;
+  --stf-size-768: 48rem;
+  --stf-size-1024: 64rem;
+  --stf-size-1200: 75rem;
+  --stf-size-1280: 80rem;
+  --stf-size-1440: 90rem;
+  --stf-size-1600: 100rem;
+  --stf-size-1920: 120rem;
+  --stf-size-max: 9999px;
+
+  /* letter spacing - rem (do có số thập phân nên ở phần value của tên * 10 và bỏ dấu âm) */
+  --stf-ls-tighter-20: -0.125rem;
+  --stf-ls-tighter-18: -0.1125rem;
+  --stf-ls-tighter-16: -0.1rem;
+  --stf-ls-tighter-14: -0.0875rem;
+  --stf-ls-tighter-12: -0.075rem;
+  --stf-ls-tighter-10: -0.0625rem;
+  --stf-ls-tighter-8: -0.05rem;
+  --stf-ls-tighter-6: -0.0375rem;
+  --stf-ls-tighter-4: -0.025rem;
+  --stf-ls-tighter-2: -0.0125rem;
+  --stf-ls-normal: 0;
+  --stf-ls-wider-2: 0.0125rem;
+  --stf-ls-wider-4: 0.025rem;
+  --stf-ls-wider-6: 0.0375rem;
+  --stf-ls-wider-8: 0.05rem;
+  --stf-ls-wider-10: 0.0625rem;
+  --stf-ls-wider-12: 0.075rem;
+  --stf-ls-wider-14: 0.0875rem;
+  --stf-ls-wider-16: 0.1rem;
+  --stf-ls-wider-18: 0.1125rem;
+  --stf-ls-wider-20: 0.125rem;
+
+  /* Font Weight */
+  --stf-fw-light: 300;
+  --stf-fw-regular: 400;
+  --stf-fw-medium: 500;
+  --stf-fw-semibold: 600;
+  --stf-fw-bold: 700;
+  --stf-fw-extra: 800;
+  --stf-fw-black: 900;
+
+  /* Font Style */
+  --stf-style-normal: normal;
+  --stf-style-italic: italic;
+  --stf-style-oblique: oblique;
+}
+
+/* 2. TOKEN THEME */
+:root {
+  /* Space lấy cơ số 4 là cơ sở */
+  --stf-space-0: var(--stf-size-0);
+  --stf-space-4: var(--stf-size-4);
+  --stf-space-8: var(--stf-size-8);
+  --stf-space-12: var(--stf-size-12);
+  --stf-space-16: var(--stf-size-16);
+  --stf-space-20: var(--stf-size-20);
+  --stf-space-24: var(--stf-size-24);
+  --stf-space-28: var(--stf-size-28);
+  --stf-space-32: var(--stf-size-32);
+  --stf-space-36: var(--stf-size-36);
+  --stf-space-40: var(--stf-size-40);
+  --stf-space-44: var(--stf-size-44);
+  --stf-space-48: var(--stf-size-48);
+  --stf-space-56: var(--stf-size-56);
+  --stf-space-64: var(--stf-size-64);
+  --stf-space-80: var(--stf-size-80);
+  --stf-space-100: var(--stf-size-100);
+  --stf-space-120: var(--stf-size-120);
+
+  /* Grid > Container */
+  --stf-container-xs: 320px;
+  --stf-container-sm: 720px;
+  --stf-container-md: 960px;
+  --stf-container-lg: 1136px;
+  --stf-container-xl: 1336px;
+
+  /* Grid > Gutter */
+  --stf-gutter: var(--stf-space-16);
+  --stf-gutter-md: var(--stf-space-20);
+  --stf-gutter-lg: var(--stf-space-32);
+
+  /* Grid > Padding */
+  --stf-pd-mobile: var(--stf-space-20);
+  --stf-pd-tablet: var(--stf-space-24);
+  --stf-pd-desktop: var(--stf-space-32);
+
+  /* Button height */
+  --stf-bh-sm: var(--stf-size-40);
+  --stf-bh-md: var(--stf-size-44);
+  --stf-bh-lg: var(--stf-size-48);
+  --stf-bh-xl: var(--stf-size-56);
+
+  /* Radius */
+  --stf-radius-3xs: var(--stf-size-2);
+  --stf-radius-2xs: var(--stf-size-4);
+  --stf-radius-xs: var(--stf-size-6);
+  --stf-radius-sm: var(--stf-size-8);
+  --stf-radius-md: var(--stf-size-12);
+  --stf-radius-lg: var(--stf-size-16);
+  --stf-radius-xl: var(--stf-size-20);
+  --stf-radius-2xl: var(--stf-size-24);
+  --stf-radius-full: var(--stf-size-max);
+
+  /* Border thick */
+  --stf-border-thin: 1px;
+  --stf-border-regular: 1.5px;
+  --stf-border-bold: 2px;
+
+  /* Icon thick */
+  --stf-icon-thin: 1px;
+  --stf-icon-regular: 1.5px;
+  --stf-icon-bold: 2px;
+
+  /* Theme > Shadows */
+  --stf-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --stf-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px 0 rgb(0 0 0 / 0.06);
+  --stf-shadow-md: 0 4px 8px -2px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --stf-shadow-lg: 0 12px 16px -4px rgb(0 0 0 / 0.08), 0 4px 6px -2px rgb(0 0 0 / 0.03);
+  --stf-shadow-xl: 0 20px 24px -4px rgb(0 0 0 / 0.08), 0 8px 8px -4px rgb(0 0 0 / 0.03);
+  --stf-shadow-2xl: 0 24px 48px -12px rgb(0 0 0 / 0.18);
+  --stf-shadow-3xl: 0 32px 64px -12px rgb(0 0 0 / 0.14);
+}
+
+/* Grid theo thiết bị: mobile -> tablet -> desktop */
+:root {
+  --stf-layout-gutter: var(--stf-gutter);
+  --stf-layout-padding: var(--stf-pd-mobile);
+}
+
+@media (min-width: 48em) {
+  :root {
+    --stf-layout-gutter: var(--stf-gutter-md);
+    --stf-layout-padding: var(--stf-pd-tablet);
+  }
+}
+
+@media (min-width: 75em) {
+  :root {
+    --stf-layout-gutter: var(--stf-gutter-lg);
+    --stf-layout-padding: var(--stf-pd-desktop);
+  }
+}
+
+/* 3. TYPE SCALE - clamp() từ 768px (Mobile) đến 1200px (Desktop)*/
+:root {
+  /* Tiến độ t = quãng đã đi qua mốc 48rem (768px), tối đa 27rem (432px, tới 75rem = 1200px).
+     Không chia trong clamp: t là độ dài thật nên Firefox không làm tròn sai nó.
+     d = phần đã đi = t ÷ 27 (0 → 1rem); m = trọn 1 phần trừ phần đã đi = 1rem − t ÷ 27 (1rem → 0).
+     Cả hai đã nhân Base size của đầu tương ứng. */
+  --stf-type-t: clamp(0rem, 100vw - 48rem, 27rem);
+  --stf-type-m: calc(var(--stf-scale-m, 1) * (1rem - var(--stf-type-t) / 27));
+  --stf-type-d: calc(var(--stf-scale-d, 1) * var(--stf-type-t) / 27);
+
+  /* Type scale › Font Size, hệ số là rem: cỡ = Mobile × m + Desktop × d */
+  --stf-fs-8xl: calc(3.25 * var(--stf-type-m) + 4.375 * var(--stf-type-d));
+  --stf-fs-7xl: calc(2.625 * var(--stf-type-m) + 3.5 * var(--stf-type-d));
+  --stf-fs-6xl: calc(2.125 * var(--stf-type-m) + 2.75 * var(--stf-type-d));
+  --stf-fs-5xl: calc(1.75 * var(--stf-type-m) + 2.25 * var(--stf-type-d));
+  --stf-fs-4xl: calc(1.5 * var(--stf-type-m) + 1.875 * var(--stf-type-d));
+  --stf-fs-3xl: calc(1.25 * var(--stf-type-m) + 1.5 * var(--stf-type-d));
+  --stf-fs-2xl: calc(1.125 * var(--stf-type-m) + 1.25 * var(--stf-type-d));
+  --stf-fs-xl: calc(1 * var(--stf-type-m) + 1.125 * var(--stf-type-d));
+  --stf-fs-base: calc(0.875 * var(--stf-type-m) + 1 * var(--stf-type-d));
+  --stf-fs-lg: calc(0.8125 * var(--stf-type-m) + 0.875 * var(--stf-type-d));
+  --stf-fs-md: calc(0.75 * var(--stf-type-m) + 0.8125 * var(--stf-type-d));
+  --stf-fs-sm: calc(0.75 * var(--stf-type-m) + 0.75 * var(--stf-type-d));
+  --stf-fs-xs: calc(0.6875 * var(--stf-type-m) + 0.6875 * var(--stf-type-d));
+  --stf-fs-2xs: calc(0.625 * var(--stf-type-m) + 0.625 * var(--stf-type-d));
+
+  /* Type scale > Line Height */
+  --stf-lh-8xl: calc(3.75 * var(--stf-type-m) + 5 * var(--stf-type-d));
+  --stf-lh-7xl: calc(3 * var(--stf-type-m) + 4 * var(--stf-type-d));
+  --stf-lh-6xl: calc(2.5 * var(--stf-type-m) + 3.25 * var(--stf-type-d));
+  --stf-lh-5xl: calc(2.25 * var(--stf-type-m) + 2.75 * var(--stf-type-d));
+  --stf-lh-4xl: calc(2 * var(--stf-type-m) + 2.375 * var(--stf-type-d));
+  --stf-lh-3xl: calc(1.75 * var(--stf-type-m) + 2 * var(--stf-type-d));
+  --stf-lh-2xl: calc(1.625 * var(--stf-type-m) + 1.75 * var(--stf-type-d));
+  --stf-lh-xl: calc(1.5 * var(--stf-type-m) + 1.625 * var(--stf-type-d));
+  --stf-lh-base: calc(1.375 * var(--stf-type-m) + 1.5 * var(--stf-type-d));
+  --stf-lh-lg: calc(1.25 * var(--stf-type-m) + 1.375 * var(--stf-type-d));
+  --stf-lh-md: calc(1.125 * var(--stf-type-m) + 1.25 * var(--stf-type-d));
+  --stf-lh-sm: calc(1.125 * var(--stf-type-m) + 1.125 * var(--stf-type-d));
+  --stf-lh-xs: calc(1 * var(--stf-type-m) + 1 * var(--stf-type-d));
+  --stf-lh-2xs: calc(1 * var(--stf-type-m) + 1 * var(--stf-type-d));
+}
+
+/* 4. Font Family cố định giống nhau ở cả 4 preset, không có setting */
+:root {
+  --stf-ff-quote: var(--stf-ff-body);
+  --stf-ff-code: 'JetBrains Mono', monospace;
+}
+
+/* 5. Màu toàn cục cố định, không có Theme settings */
+:root {
+  /* Badge > Best seller */
+  --stf-badge-bestseller-bg: #21201c;
+  --stf-badge-bestseller-text: #fdfdfc;
+
+  /* Badge › Trending */
+  --stf-badge-trending-bg: #21201c;
+  --stf-badge-trending-text: #fdfdfc;
+
+  /* Badge › Vintage */
+  --stf-badge-vintage-bg: #fcfcfc;
+  --stf-badge-vintage-text: #202020;
+  --stf-badge-vintage-border: #e0e0e0;
+
+  /* Semantics */
+  --stf-status-info: #0d74ce;
+}
+
+/* 6. Color Scheme - Ở đây chỉ áp màu chữ và nền */
+body,
+[class^='color-scheme-'],
+[class*=' color-scheme-'] {
+  color: var(--stf-scheme-text);
+  background-color: var(--stf-scheme-bg);
+  color-scheme: var(--stf-scheme-color, light);
+}
+
+/* 7. Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+dialog,
+[popover] {
+  margin: auto;
+  color: inherit;
+  background-color: var(--stf-scheme-bg);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+iframe {
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input,
+textarea,
+select {
+  color: var(--stf-input-text);
+  background-color: var(--stf-input-bg);
+}
+
+@supports (-webkit-touch-callout: none) {
+  input,
+  textarea,
+  select {
+    font-size: max(1em, 1rem);
+  }
+}
+
+::placeholder {
+  color: var(--stf-scheme-text-secondary);
+  opacity: 1;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+summary {
+  cursor: pointer;
+}
+
+[hidden]:not([hidden='until-found']) {
+  display: none !important;
+}
+
+hr {
+  border: 0;
+  border-top: var(--stf-border-thin) solid var(--stf-scheme-border);
+}
+
+:focus-visible {
+  outline: var(--stf-border-bold) solid var(--stf-scheme-text);
+  outline-offset: 2px;
+}
+
+[tabindex='-1']:not(a, button, input, select, textarea, summary, [role]):focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *:not([data-motion='essential']),
+  *:not([data-motion='essential'])::before,
+  *:not([data-motion='essential'])::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 8. Kiểu chữ - Một text style trong Preset */
+body {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-base);
+  --stf-lh-text: var(--stf-lh-base);
+  --stf-ls-text: var(--stf-ls-text-body-base);
+}
+
+/* h1–h6 = Heading/6xl → Heading/xl. Class .heading-* dùng khi cần kiểu chữ mà không đổi cấp heading */
+h1,
+.heading-6xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-6xl);
+  font-size: var(--stf-fs-6xl);
+  --stf-lh-text: var(--stf-lh-6xl);
+  --stf-ls-text: var(--stf-ls-text-heading-6xl);
+}
+h2,
+.heading-5xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-5xl);
+  font-size: var(--stf-fs-5xl);
+  --stf-lh-text: var(--stf-lh-5xl);
+  --stf-ls-text: var(--stf-ls-text-heading-5xl);
+}
+h3,
+.heading-4xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-4xl);
+  font-size: var(--stf-fs-4xl);
+  --stf-lh-text: var(--stf-lh-4xl);
+  --stf-ls-text: var(--stf-ls-text-heading-4xl);
+}
+h4,
+.heading-3xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-3xl);
+  font-size: var(--stf-fs-3xl);
+  --stf-lh-text: var(--stf-lh-3xl);
+  --stf-ls-text: var(--stf-ls-text-heading-3xl);
+}
+h5,
+.heading-2xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-2xl);
+  font-size: var(--stf-fs-2xl);
+  --stf-lh-text: var(--stf-lh-2xl);
+  --stf-ls-text: var(--stf-ls-text-heading-2xl);
+}
+h6,
+.heading-xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-xl);
+  font-size: var(--stf-fs-xl);
+  --stf-lh-text: var(--stf-lh-xl);
+  --stf-ls-text: var(--stf-ls-text-heading-xl);
+}
+
+/* Display — lớn hơn h1 */
+.display-8xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-display-8xl);
+  font-size: var(--stf-fs-8xl);
+  --stf-lh-text: var(--stf-lh-8xl);
+  --stf-ls-text: var(--stf-ls-text-display-8xl);
+}
+.display-7xl {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-display-7xl);
+  font-size: var(--stf-fs-7xl);
+  --stf-lh-text: var(--stf-lh-7xl);
+  --stf-ls-text: var(--stf-ls-text-display-7xl);
+}
+
+/* Heading nhỏ hơn h6 */
+.heading-base {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-base);
+  font-size: var(--stf-fs-base);
+  --stf-lh-text: var(--stf-lh-base);
+  --stf-ls-text: var(--stf-ls-text-heading-base);
+}
+.heading-lg {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-lg);
+  font-size: var(--stf-fs-lg);
+  --stf-lh-text: var(--stf-lh-lg);
+  --stf-ls-text: var(--stf-ls-text-heading-lg);
+}
+.heading-md {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-md);
+  font-size: var(--stf-fs-md);
+  --stf-lh-text: var(--stf-lh-md);
+  --stf-ls-text: var(--stf-ls-text-heading-md);
+}
+.heading-sm {
+  font-family: var(--stf-ff-heading);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-text-heading-sm);
+  font-size: var(--stf-fs-sm);
+  --stf-lh-text: var(--stf-lh-sm);
+  --stf-ls-text: var(--stf-ls-text-heading-sm);
+}
+
+/* Body — thứ tự theo token: 2xl > xl > base > lg > md > sm > xs > 2xs */
+.body-2xl {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-2xl);
+  --stf-lh-text: var(--stf-lh-2xl);
+  --stf-ls-text: var(--stf-ls-text-body-2xl);
+}
+.body-xl {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-xl);
+  --stf-lh-text: var(--stf-lh-xl);
+  --stf-ls-text: var(--stf-ls-text-body-xl);
+}
+.body-base {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-base);
+  --stf-lh-text: var(--stf-lh-base);
+  --stf-ls-text: var(--stf-ls-text-body-base);
+}
+.body-lg {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-lg);
+  --stf-lh-text: var(--stf-lh-lg);
+  --stf-ls-text: var(--stf-ls-text-body-lg);
+}
+.body-md {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-md);
+  --stf-lh-text: var(--stf-lh-md);
+  --stf-ls-text: var(--stf-ls-text-body-md);
+}
+.body-sm {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-sm);
+  --stf-lh-text: var(--stf-lh-sm);
+  --stf-ls-text: var(--stf-ls-text-body-sm);
+}
+.body-xs {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-xs);
+  --stf-lh-text: var(--stf-lh-xs);
+  --stf-ls-text: var(--stf-ls-text-body-xs);
+}
+.body-2xs {
+  font-family: var(--stf-ff-body);
+  font-style: var(--stf-style-normal);
+  font-weight: var(--stf-fw-regular);
+  font-size: var(--stf-fs-2xs);
+  --stf-lh-text: var(--stf-lh-2xs);
+  --stf-ls-text: var(--stf-ls-text-body-2xs);
+}
+
+/* Display + Heading (Theme settings › Typography › Heading): áp line-height / letter-spacing / chữ hoa — setting (nếu có) ưu tiên, không thì token */
+h1,
+.heading-6xl,
+h2,
+.heading-5xl,
+h3,
+.heading-4xl,
+h4,
+.heading-3xl,
+h5,
+.heading-2xl,
+h6,
+.heading-xl,
+.display-8xl,
+.display-7xl,
+.heading-base,
+.heading-lg,
+.heading-md,
+.heading-sm {
+  line-height: var(--stf-heading-line-height, var(--stf-lh-text));
+  letter-spacing: var(--stf-heading-letter-spacing, var(--stf-ls-text));
+  text-transform: var(--stf-heading-text-transform, none);
+}
+
+/* Body (Theme settings › Typography › Body): áp line-height / letter-spacing / chữ hoa — setting (nếu có) ưu tiên, không thì token */
+body,
+.body-2xl,
+.body-xl,
+.body-base,
+.body-lg,
+.body-md,
+.body-sm,
+.body-xs,
+.body-2xs {
+  line-height: var(--stf-body-line-height, var(--stf-lh-text));
+  letter-spacing: var(--stf-body-letter-spacing, var(--stf-ls-text));
+  text-transform: var(--stf-body-text-transform, none);
+}
+
+/* Thẻ văn bản có token riêng trong _Typography */
+b,
+strong {
+  font-weight: var(--stf-fw-bold);
+}
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--stf-ff-code);
+}
+blockquote {
+  font-family: var(--stf-ff-quote);
+}
+
+a {
+  color: var(--stf-scheme-accent);
+}
